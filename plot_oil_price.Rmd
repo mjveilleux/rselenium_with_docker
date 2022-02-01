@@ -1,22 +1,18 @@
 ---
 title: "Forecasting Crude Oil Prices"
-author: "Mason Veilleux"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(forecast)
+library(dplyr)
 library(plotly)
-library(zoo)
-library(lubridate)
 ```
 
 
 ```{r forecast, echo=FALSE, fig.height=9, fig.width=12, message=FALSE, warning=FALSE, paged.print=FALSE}
 
-ts_forecast<- readRDS('latest_ans_price_dor.rds')
+ts_forecast<- readRDS('/Users/masonveilleux/Dropbox/forecasting_projects/oil_price/shiny_oil_forecasting/latest_ans_price_dor.rds')
 
 
 
@@ -26,12 +22,18 @@ y <- list(
   title = " $/barrel")
 
 p <- plot_ly(data =ts_forecast,x= ~date,line =list(colorscale = 'Accent')) %>%
-  add_lines(x = ts_forecast$date, y = ts_forecast$ts_oil, name = "Observed",hovertemplate = paste0("$/barrel: ",ts_forecast$ts_oil)) %>% 
-  add_lines(x = ts_forecast$date, y = ts_forecast$oilfit1.mean , name = "Mean", line = list(dash = 'dot'),hovertemplate = paste0("$/barrel: ",ts_forecast$oilfit1.mean)) %>%
-  add_lines(x = ts_forecast$date, y = ts_forecast$oilfit2.mean  ,name = "Naïve", line = list(dash = 'dot'),hovertemplate = paste0("$/barrel: ",ts_forecast$`oilfit2$mean`)) %>%
-  add_lines(x = ts_forecast$date, y = ts_forecast$oilfit4.mean , name = "Drift Naïve", line = list(dash = 'dot'),hovertemplate = paste0("$/barrel: ",ts_forecast$oilfit4.mean)) %>%
+  add_lines(x = ts_forecast$date, y = ts_forecast$ts_oil, name = "ANS Monthly Average",hovertemplate = paste0("$/barrel: ",ts_forecast$ts_oil)) %>% 
+  
+  add_lines(x = ts_forecast$date, y = ts_forecast$oilfit2.mean  ,name = "No-change", line = list(dash = 'dot'),hovertemplate = paste0("$/barrel: ",ts_forecast$oilfit2.mean)) %>%
+  
+  add_lines(x = ts_forecast$date, y = ts_forecast$oilfit4.mean , name = "Drift No-change", line = list(dash = 'dot'),hovertemplate = paste0("$/barrel: ",ts_forecast$oilfit4.mean)) %>%
+  
   add_lines(x = ts_forecast$date, y = ts_forecast$ets.mean , name = "ETS", line = list(dash = 'dot'),hovertemplate = paste0("$/barrel: ",ts_forecast$ets.mean)) %>%
+  
   add_lines(x = ts_forecast$date, y = ts_forecast$arima.mean , name = "ARIMA(1,1,0)", line = list(dash = 'dot'),hovertemplate = paste0("$/barrel: ",ts_forecast$arima.mean)) %>% 
+  
+  add_lines(x = ts_forecast$date, y = ts_forecast$nymex_fit.mean , name = "Avg. Cushing Futures (ARIMA(1,1,0))", line = list(dash = 'dot'),hovertemplate = paste0("$/barrel: ",ts_forecast$nymex_fit.mean)) %>% 
+  
   layout(hovermode = "x unified",
          xaxis = list(title = "Year", rangeslider = list(type = "date")), 
          yaxis = list(title = "$/barrel"),
