@@ -1,8 +1,12 @@
 # Oil Price Forecasting
 
-web app for forecasting oil prices
+This is a web app for plotting ANS oil price forecasts. Data is scaped from Alaska's Department of Revenue Various service (ANS prices) and the Energy Information Administration (Cushing Crude Oil futures). Both webistes update daily. Various forecast methods are used but most are crude. I will be updating with more rigorous methods in the near future. For an overview of forecasting oil prices see file fed_forecasting_oil_price.pdf in the repository.
 
-https://rpubs.com/mjveilleux/861223
-
+web app address for forecasting oil prices:
+      https://rpubs.com/mjveilleux/861223
 
 data: http://www.tax.alaska.gov/programs/oil/dailyoil/dailyoil.aspx
+      https://www.eia.gov/dnav/pet/pet_pri_fut_s1_d.htm
+      
+
+Values are taken as monthly averages. Cushing crude oil futures contracts are daily averaged then monthly averaged.
