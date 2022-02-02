@@ -10,9 +10,9 @@ library(plotly)
 ```
 
 
-```{r forecast, echo=FALSE, fig.height=9, fig.width=12, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r forecast, echo=FALSE, fig.height=7, fig.width=10, message=FALSE, warning=FALSE, paged.print=FALSE}
 
-ts_forecast<- readRDS('/Users/masonveilleux/Dropbox/forecasting_projects/oil_price/shiny_oil_forecasting/latest_ans_price_dor.rds')
+ts_forecast<- readRDS('/Users/masonveilleux/Dropbox/forecasting_projects/oil_price/oil_price_forecasting/latest_ans_price_dor.rds')
 
 
 
